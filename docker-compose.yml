@@ -1,0 +1,23 @@
+services:
+  backend:
+    image: monitoramento-agricola:3.0
+    ports:
+      - "8525:8525"
+    environment:
+      - LD_LIBRARY_PATH=/opt/oracle/instantclient
+      - ORACLE_HOME=/opt/oracle/instantclient
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "python test_file.py"]
+      interval: 10m
+      timeout: 120s
+      retries: 1
+      start_period: 5s
+  autoheal:
+    image: willfarrell/autoheal:latest
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=all
+      - AUTOHEAL_INTERVAL=5
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always

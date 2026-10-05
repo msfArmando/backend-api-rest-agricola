@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+pyodbc>=5.0.0
+psycopg2-binary
+pydantic
+pydantic-settings
+python-dotenv
+aiosmtpd
+requests
+apscheduler
